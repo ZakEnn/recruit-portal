@@ -1,0 +1,15 @@
+{
+    "/server":{
+        "target":"http://localhost:8082/ws-uaa",
+        "secure":false,
+        "changeOrigin":true,
+        "logLevel":"debug",
+        "pathRewrite":{
+            "^/server":""
+        }
+    }
+}
+
+
+
+

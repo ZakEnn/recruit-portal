@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.jumbotron{
+   /* height: */
+   min-height:  88.2vh;
+   padding: 3rem 0.4rem;
+}
+
+.afu-select-btn{
+    margin-bottom: 0%;
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+

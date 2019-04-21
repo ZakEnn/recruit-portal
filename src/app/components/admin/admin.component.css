@@ -1,0 +1,4 @@
+.nav-item:hover {
+    background-color: rgba(163, 197, 219, 0.781) !important;
+    width: 108%;
+}

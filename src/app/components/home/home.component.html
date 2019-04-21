@@ -1,0 +1,184 @@
+﻿
+<div class="container-fluid" style="margin-top:4%">
+<div *ngIf="showDocsStatus" style="margin-left: -46%;"> 
+  <div class="col-md-12" >
+      <p>You Are logged in.</p>
+      <h1>Upload Documents to Sign</h1>
+      <hr style="width:80vh;float:left" >
+      <div class="col-md-8 overflow-auto" style="margin-top:4%;
+              height:40vh;float:left;"
+          *ngFor='let pdf of srcPdfs'>
+          <pdf-viewer             
+              [src]="pdf" 
+              [render-text]="true"
+              style="display: block;border:solid 1px black"
+              [zoom]="1"
+              [original-size]="false"
+              [fit-to-page]="true">
+          </pdf-viewer>
+      </div>
+      <div class="col-md-2" style="float:right" *ngIf="srcPdfs.length > 0">
+        <button  class="btn"
+         (click)="passDocs()" >
+          <img src="/assets/icons/r-arrow.png" height="150px">
+        </button>
+      </div>
+      <div class="custom-file col-md-8" style="margin-top:3%">
+         <input type="file" (change)="onSelectFile($event)" class="custom-file-input" id="validatedCustomFile" 
+                accept=".pdf,.doc,.docx" multiple
+                required>
+        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+        <div class="invalid-feedback"> invalid custom file feedback</div>
+      </div>
+     
+  </div>
+ 
+</div>
+
+<div  *ngIf="showMailsStatus">
+    <div class="col-md-2"  style="margin-left: -55%;float:left;margin-top:14%">
+        <button  class="btn"
+         (click)="ngOnInit()" >
+          <img src="/assets/icons/a-left.png" height="150px">
+        </button>
+      </div>
+  <div class="col-md-10" style="margin-left: -15%" >
+      <h1>Select Signers via Mails</h1>
+      <hr>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" (keyup)="onKeyMail($event)" 
+        class="form-control col-md-6" id="exampleInputEmail1" 
+        aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <button class="btn btn-primary">Add signer</button>
+
+      <!-- <table class="table table-striped table-bordered col-lg-4">
+        <caption>
+          <i>Add/remove textbox and chip dynamically in Angular 6</i>
+        </caption>
+  
+        <thead>
+          <tr>
+            <th>Item Name
+              <a (click)="onEditCloseItems()" class="text-info float-right">
+                <i class="mdi mdi-{{isEditItems ? 'close' : 'pencil'}} mdi-18px"></i>
+              </a>
+            </th>
+          </tr>
+        </thead>
+  
+        <tbody *ngIf="!isEditItems">
+          <tr *ngFor="let field of fieldArray; let i = index">
+            <td *ngIf="field?.name">
+              <i (click)="deleteFieldValue(i)" class="mdi mdi-close mdi-18px"></i> {{field.name}}
+            </td>
+          </tr>
+        </tbody>
+  
+        <tbody *ngIf="isEditItems">
+          <tr *ngFor="let field of fieldArray; let i = index">
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div (click)="deleteFieldValue(i)" class="input-group-text">
+                    <i class="mdi mdi-close mdi-18px"></i>
+                  </div>
+                </div>
+                <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" placeholder="Name...">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <button *ngIf="fieldArray.length <= 2" class="btn btn-secondary btn-lg1" type="button" (click)="addFieldValue()" style="margin-right:10px">Add More Item</button>
+              <button (click)="onEditCloseItems()" class="btn btn-primary btn-lg1" type="button">Save Items</button>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+  </div>
+  <button  class="col-md-2 btn"  style="float:right;margin-top:-15%"
+         (click)="passMails()" >
+        <img src="/assets/icons/r-arrow.png" height="150px">
+  </button>
+</div>
+<!-- ///////////////// -->
+<div class="row" *ngIf="showNotificationStatus" >
+    <button  style="float:left;margin-top:8%;margin-right: 39%;margin-left: -50%;" class="btn col-md-2"
+    (click)="passDocs()" >
+     <img src="/assets/icons/a-left.png" height="150px">
+   </button>
+  <div class="col-md-7" style="margin-right: 34%;margin-left: -62%;margin-left: -16%;">
+   
+    <h1 class="text-center">Notification to send</h1>
+      <hr>
+      <div class="form-group">
+          <label for="formGroupExampleInput">Message Object</label>
+          <input type="text" class="form-control"  (keyup)="onKeyObj($event)" id="formGroupExampleInput" placeholder="Example input">
+        </div>
+        <div class="mb-3">
+          <label for="validationTextarea">Message Content</label>
+          <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea"
+          (keyup)="onKey($event)" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+     
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+          <label class="custom-control-label" for="customControlValidation1">Check to confirm your message</label>
+          <div class="invalid-feedback">Example invalid feedback text</div>
+        </div>
+  </div>
+      
+  <button style="float:right;margin-top:8%" class="btn col-md-2" (click)="passNotif()" >
+    <img src="/assets/icons/r-arrow.png" height="150px">
+</button>
+</div>
+
+
+
+<!-- //////////// -->
+<div class="row" *ngIf="showValidationStatus">
+    <button  style="float:left;margin-top:8%;margin-right: 20%;margin-left: -50%;" class="btn col-md-2"
+    (click)="passMails()" >
+     <img src="/assets/icons/a-left.png" height="150px">
+   </button>
+    <div class="col-md-9">
+      <h1>Confirm Informations</h1>
+      <hr>
+      <table class="table">
+        <tr>
+          <th>documents to sign</th>
+          <th>signers emails</th>
+          <th>Notification Object</th>
+        </tr>
+        <tr>
+          <td>{{this.fileName}}</td>
+          <td item-width="500px">{{this.emails[0]}}</td>
+          <td>{{this.notifObj}} / {{this.notifBody}}</td>
+        </tr>
+      </table>
+      <button class="btn btn-success" (click)="sendObj()">Send</button>
+      <img *ngIf="loading" class="pl-2" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      &nbsp;
+      <button class="btn btn-primary" (click)="reset()">Reset</button>
+     
+      <swal #showSwal
+            [title]="sendingStatus ? 'Process completed':
+                    'Process incompleted' "
+            [text]="sendingStatus ? 'Documents has been sent ! ':
+                   statusCode+' !'"
+            [type]="sendingStatus ? 'success':'warning'"
+            [focusCancel]="true"
+            (confirm)="swalProcess(showSwal)"
+      ></swal>
+    </div>
+<!--    
+  </div> -->
+
+</div>
+</div>
