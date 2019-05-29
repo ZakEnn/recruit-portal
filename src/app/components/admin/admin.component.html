@@ -1,29 +1,90 @@
 ﻿<div class="row position-fixed col-md-2" style="margin-left: -34%">
     <ul class="nav flex-column bg-light text-dark col-md-12" style="float:left;min-height:92vh;padding-top:10%">
-        <button class="nav-item btn active text-left">
-           Users
-          </button>           
-        <button class="nav-item btn active text-left">
-           Documents
-        </button>
-        <button class="nav-item btn active text-left">
-          Notifications
-        </button>
+        <a routerLink="/admin/configuration">      
+            <button class="nav-item btn active text-left">
+                Configuration
+            </button> 
+        </a> 
+        <a routerLink="/admin/manage-users">
+             <button class="nav-item btn active text-left">
+                 Users management
+             </button>   
+        </a>       
+        <a routerLink="/admin/archivage"> 
+            <button class="nav-item btn active text-left">
+                Archiving
+            </button>
+        </a>
+        <a routerLink="/admin/audit-service">
+            <button class="nav-item btn active text-left">
+            Notifications
+            </button>
+        </a>
         <li> <hr></li>
       
   </ul>
 </div>
+<div *ngIf="router.url === '/admin/manage-users'">
+    <a style="cursor: pointer;float:right;margin-top:2%" (click)="showSwal.show();">
+         <img src="/assets/icons/add.png">
+    </a>
+    <swal title="Add User" (confirm)="addUser()" #showSwal>
+            <form [formGroup]="addingForm"  *swalPartial>
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" formControlName="firstname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+                    <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstname.errors.required">First Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" formControlName="lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                    <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastname.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                        <div *ngIf="f.phone.errors.required">Phone number is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmedPassword">confirmed Password</label>
+                    <input type="password" formControlName="confirmedPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmedPassword.errors }" />
+                    <div *ngIf="submitted && f.confirmedPassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmedPassword.errors.required">Password is required</div>
+                        <div *ngIf="f.confirmedPassword.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
+                
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            </form>
+            <!-- This targets the confirm button's inner content
+                 Notice the usage of ng-container to avoid creating an useless DOM element inside the button -->
+            <ng-container *swalPartial="swalTargets.confirmButton" ng-click="submit()">
+                CONFIRM
+            </ng-container>
+          </swal>
+</div>
 
-<div class="col-md-12" style="margin-top:2%;float:left;margin-left: -25%;">
-
-    <h1 class="text-center">Users</h1>
-    <p>You're logged in as Admin </p>
-    <div *ngIf="users">
-        
-        All users from secure (admin only) api end point:
-    <ul >
-        <li *ngFor="let user of users">{{user.firstname}} {{user.lastname}}</li>
-    </ul>
-    </div>
-
+<div class="col-md-14" style="margin-top:2%;float:left;margin-left: -25%;">
+    <router-outlet></router-outlet>
 </div>

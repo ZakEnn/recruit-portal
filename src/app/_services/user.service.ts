@@ -31,11 +31,31 @@ export class UserService {
  
     }
 
+    getByMail(mail: string) {
+        // return this.http.get(`/server/api/v1/users`);
+        console.log("i got token : "+localStorage.getItem('token'));
+        this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
+        
+        this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+ 
+        console.log("here is my headers : "+ this.headers);
+        return this.http.get('/server/user/' + mail, {headers:this.headers});
+  
+     }
+
     getById(id: number) {
         return this.http.get<User>(`${config}/users/${id}`);
     }
 
-    
+    removeUser(mail: string){
+        this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
+       
+       this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+
+       console.log("here is my headers : "+ this.headers);
+       return this.http.get('/server/remove-user/'+mail,{headers:this.headers});
+    }
+
     register(user: User) {
         let body = JSON.stringify(user);
         console.log(body);
@@ -56,6 +76,13 @@ export class UserService {
         this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
         this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
         return this.http.get(`/server/get-tasks/`, {headers:this.headers});  
+    }
+
+    getTasksByMail(mail : string){
+
+        this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
+        this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+        return this.http.get('/server/get-tasks/'+mail, {headers:this.headers});  
     }
 
 

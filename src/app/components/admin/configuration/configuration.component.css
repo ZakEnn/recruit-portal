@@ -1,0 +1,10 @@
+table {
+    table-layout:fixed;
+}
+table td {
+    width: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word; 
+}
