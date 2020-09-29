@@ -1,0 +1,182 @@
+  
+  <div class="row position-fixed col-md-2" style="margin-left: -34%">
+    <ul class="nav flex-column bg-light text-dark col-md-12" style="float:left;min-height:92vh;padding-top:10%">
+        <button class="nav-item btn active text-left" 
+                (click)="body='signing'">
+           Signing Request
+          </button>           
+        <button class="nav-item btn active text-left"
+                (click)="body='Transactions'">
+           Transactions
+        </button>
+        <button class="nav-item btn active text-left"
+                (click)="body='Documents'">
+           Documents
+        </button>
+        <li> <hr></li>
+        <button class="nav-item btn active text-left"
+                (click)="body='Actions required'">
+          Actions required
+        </button>
+        <button class="nav-item btn active text-left">
+          Waiting for others
+        </button>
+        <button class="nav-item btn active text-left">
+          Expiring soon
+        </button>
+  </ul>
+</div>
+<div style="margin-top:2%;float:left;margin-left: -25%;width: 124%;">
+  <h2 class="container" *ngIf="body!='signing'">
+   {{body}}
+     <hr>
+  </h2>
+  <div class="col-md-12" *ngIf="body=='signing'">
+      <form-wizard >
+  <wizard-step [title]="'Upload Document to Sign'" (onNext)="onStep1Next($event)">
+    <div class="container" style="height: 350px;">
+    <div class="col-md-8 overflow-auto" style="margin-top:4%;
+        height:40vh;float:left;margin-left:10%"
+        *ngFor='let pdf of srcPdfs'>
+        <pdf-viewer             
+            [src]="pdf" 
+            [render-text]="true"
+            style="display: block;border:solid 1px black"
+            [zoom]="1"
+            [original-size]="false"
+            [fit-to-page]="true">
+        </pdf-viewer>
+    </div>
+    <div class="custom-file col-md-8" style="margin-top:5%;margin-left:10%">
+        <input type="file" (change)="onSelectFile($event)" class="custom-file-input" id="validatedCustomFile" 
+               accept=".pdf,.doc,.docx" multiple
+               required>
+       <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+       <div class="invalid-feedback"> invalid custom file feedback</div>
+     </div>
+    </div>
+  </wizard-step>
+  <wizard-step [title]="'Add Signers'" (onNext)="onStep2Next($event)">
+    <div class="container" style="height: 350px;">
+      <div class="form-group" id="mailForm">
+        <hr>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <br>
+        <label for="InputEmail">Email address</label>
+        <input type="email" (keyup)="onKeyMail($event)" 
+        class="form-control col-md-6" id="InputEmail" 
+        aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <button class="btn btn-primary" (click)="addSigner()">Add signer</button>
+    </div>
+  </wizard-step>
+  <wizard-step [title]="'Add Mail Notification'" (onNext)="onStep3Next($event)">
+      <div class="container" style="height: 350px;">
+        <hr>
+        <br>
+        <div class="form-group">
+              <label for="formGroupExampleInput">Message Object</label>
+              <input type="text" class="form-control"  (keyup)="onKeyObj($event)" id="formGroupExampleInput" placeholder="Example input">
+            </div>
+            <div class="mb-3">
+              <label for="validationTextarea">Message Content</label>
+              <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea"
+              (keyup)="onKey($event)" required></textarea>
+              <div class="invalid-feedback">
+                Please enter a message in the textarea.
+              </div>
+            </div>
+         
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+              <label class="custom-control-label" for="customControlValidation1">Check to confirm your message</label>
+              <div class="invalid-feedback">Example invalid feedback text</div>
+            </div>
+        </div>
+  </wizard-step>
+  <wizard-step [title]="'Confirm Informations'" (onComplete)="onComplete($event)">
+    <div class="container" [ngSwitch]="isCompleted" style="height: 350px;">
+      <div *ngSwitchDefault>
+        <hr>
+          <table class="table">
+              <tr>
+                  <th scope="col">Documents to sign</th>
+                  <td> {{this.fileName}}</td>   
+              </tr>
+              <tr>
+                  <th scope="col">Signers emails</th>
+                  <td item-width="500px" >
+                     <div *ngFor="let mail of emails">
+                        <tr>{{mail}} </tr>
+                     </div> 
+                  </td>      
+              </tr>
+              <tr>
+                  <th scope="col">Notification Object</th>
+                  <td> {{this.notifObj}}</td>   
+              </tr>
+              <tr>
+                  <th scope="col">Notification Content</th>
+                  <td> {{this.notifBody}}</td>   
+              </tr>           
+            </table>  
+            <swal #showSwal
+                  [title]="sendingStatus ? 'Process completed':
+                          'Process incompleted' "
+                  [text]="sendingStatus ? 'Documents has been sent ! ':
+                        statusCode+' !'"
+                  [type]="sendingStatus ? 'success':'warning'"
+                  [focusCancel]="true"
+                  (confirm)="swalProcess(showSwal)"
+             ></swal>   
+          </div>
+      <div *ngSwitchCase="true">
+        <h4>Thank you! Your signing request has been sent.</h4>
+      </div>
+    </div>
+  </wizard-step>
+</form-wizard>
+  </div>
+  <div class="row" *ngIf="body=='Transactions'">
+    <table class="table" 
+    *ngFor="let task of tasks">
+        <tr >
+            <th scope="col">Description</th>
+            <td>  {{task.purpose}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Process Time</th>
+            <td >{{task.timestamp}}</td>     
+        </tr>
+        <tr>
+            <th scope="col">Transaction Hash</th>
+            <td> {{task.transactionHash}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Block Hash</th>
+            <td> {{task.blockHash}}</td>   
+        </tr>
+        <tr>
+            <th scope="col">From</th>
+            <td >{{task.from}}</td>  
+        </tr>
+        <tr>
+            <th scope="col">To</th>
+            <td >{{task.to}}</td>     
+        </tr>
+        <tr *ngIf="task.purpose=='signDocument'">
+            <th scope="col">Document Hash</th>
+            <td >{{task.documentHash}}</td>     
+        </tr>
+        <tr *ngIf="task.purpose=='signDocument'">
+            <th scope="col">Signer Address</th>
+            <td >{{task.signerAddress}}</td>     
+        </tr>
+        <hr class="breadcrumb">
+    </table>
+  </div>
+  <div class="row" *ngIf="body=='Documents'">
+    List des Documents ajouter a la blockchain
+  </div>
+</div>
+

@@ -6,6 +6,9 @@
                 <a class="nav-item nav-link" routerLink="/home" >Home</a>
             </li>
             <li >
+                <a class="nav-item nav-link" routerLink="/blockchain"  *ngIf="isAuthenticated()">Blockchain</a>
+           </li>
+            <li >
                  <a class="nav-item nav-link" routerLink="/manage"  *ngIf="isAuthenticated()">Manage</a>
             </li>
         </ul>

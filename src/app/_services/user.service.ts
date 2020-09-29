@@ -101,6 +101,22 @@ export class UserService {
         this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
         return this.http.post('/server/signing-process/'+processId, body ,{ headers:this.headers });  
     }
-   
+
+    /////////////////////////////////////////////////:
+
+    getBlockchainTransactions(){
+        let url: string = "http://localhost:8082/ws-uaa/blockchain-service/get-all-transactions/";
+        this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
+        this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+        return this.http.get(url,{headers:this.headers});
+
+    }
+    
+    sendDataToBlockchain(body:any){
+        this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
+        this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+        return this.http.post('/server/send-to-blockchain-service/', body, {headers:this.headers});  
+    }
+    
 }
 

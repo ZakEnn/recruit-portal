@@ -49,17 +49,6 @@ export class HomeComponent {
       firstFieldName = 'First Item name';
       isEditItems: boolean;
     
-      // candidates: any[] = [
-      //   {
-      //     'name': 'Default Name',
-      //     'title': 'Job Title',
-      //   },
-      //   {
-      //     'name': 'Default Name 2',
-      //     'title': 'Job Title',
-      //   }
-      // ];
-    
       addFieldValue(index) {
         if (this.fieldArray.length <= 2) {
           this.fieldArray.push(this.newAttribute);

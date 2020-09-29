@@ -24,7 +24,9 @@ import { ArchivingComponent } from './components/admin/archiving/archiving.compo
 import { AuditComponent } from './components/admin/audit/audit.component';;
 import { UserDetailsComponent } from './components/admin/user-details/user-details.component'
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';;
+import { BlockchainComponent } from './components/blockchain/blockchain.component'
+import { FormWizardModule } from 'angular2-wizard';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         NgbModule.forRoot(),
         SweetAlert2Module.forRoot(),
         NgxPaginationModule,
-        Ng2SearchPipeModule
+        Ng2SearchPipeModule,
+        FormWizardModule
     ],
     declarations: [
         AppComponent,
@@ -51,7 +54,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         ConfigurationComponent,
         ArchivingComponent,
         AuditComponent ,
-        UserDetailsComponent  
+        UserDetailsComponent ,
+        BlockchainComponent 
      ],
     providers: [],
     bootstrap: [AppComponent]

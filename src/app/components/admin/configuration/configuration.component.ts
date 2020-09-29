@@ -22,6 +22,7 @@ export class ConfigurationComponent implements OnInit {
   hasConfig: boolean;
   configList: any = [];
   discoveryConfigList: any = [];
+  blockchainConfigList: any = [];
   editField: string;
   actualConfig: string;
 
@@ -40,7 +41,7 @@ export class ConfigurationComponent implements OnInit {
 
 
   ngOnInit() {
-    let servicesName = ["uaa-service","discovery-service"];
+    let servicesName = ["uaa-service","discovery-service","blockchain-service"];
     for(let serviceName in servicesName){
       console.log("service name : " + servicesName[serviceName]);
       //  this.adminService.getConfig(servicesName[serviceName]).subscribe(configuration => {
@@ -49,7 +50,7 @@ export class ConfigurationComponent implements OnInit {
       //   });
         this.adminService.getConfiguration(servicesName[serviceName]).subscribe(configuration => {
           this.configuration[servicesName[serviceName]] = configuration;
-          console.log(serviceName+" configuration 2 : " + this.configuration[servicesName[serviceName]]);
+          console.log(serviceName+" configuration : " + this.configuration[servicesName[serviceName]]);
         });
       }
 
@@ -63,6 +64,7 @@ export class ConfigurationComponent implements OnInit {
   back(){
     this.hasConfig = false;
     this.discoveryConfigList = [];
+    this.blockchainConfigList = [];
     this.configList = [];
     this.actualConfig = "";
   }
@@ -75,6 +77,9 @@ export class ConfigurationComponent implements OnInit {
       case 'discovery-service':
         console.log('discovery service wee.');
         return this.discoveryConfigList;
+      case 'blockchain-service':
+      console.log('blockchain service wee.');
+      return this.blockchainConfigList;
       default:
         console.log('Sorry, u dont nothing jon snow ');
     }

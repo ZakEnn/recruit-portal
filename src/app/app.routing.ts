@@ -13,6 +13,7 @@ import { ConfigurationComponent } from 'src/app/components/admin/configuration/c
 import { ArchivingComponent } from 'src/app/components/admin/archiving/archiving.component';
 import { AuditComponent } from 'src/app/components/admin/audit/audit.component';
 import { UserDetailsComponent } from 'src/app/components/admin/user-details/user-details.component';
+import { BlockchainComponent } from 'src/app/components/blockchain/blockchain.component';
 
 const appRoutes: Routes = [
     {
@@ -28,6 +29,11 @@ const appRoutes: Routes = [
     {
         path: 'manage',
         component: UserComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'blockchain',
+        component: BlockchainComponent,
         canActivate: [AuthGuard]
     },
     {

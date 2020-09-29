@@ -16,6 +16,7 @@
                 <th>email</th>
                 <th>phone</th>
                 <th>role</th>
+                <th>Activated</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -26,6 +27,7 @@
             <td>{{user.email}}</td>
             <td>{{user.phone}}</td>
             <td > <p *ngFor="let role of user.roles">{{role.roleName}} </p></td>
+            <td>{{user.actived > 0 ?'true':'false'}}</td>
             <td>             
                <a style="cursor: pointer" (click)="userDetails(user.email)">
                     &#8505;
