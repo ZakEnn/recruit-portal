@@ -34,9 +34,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-
-        return this.http.post('/server/login', { email, password }, {observe: 'response',  responseType: 'text'});
-          
+        return this.http.post('http://localhost:8082/ws-uaa/login', { email, password }, {observe: 'response',  responseType: 'text'});
     }
 
     saveToken(jwt: string){
@@ -65,10 +63,14 @@ export class AuthenticationService {
     }
 
     isAdmin(){
+        let jwtHelper = new JwtHelperService();
+        this.roles =  jwtHelper.decodeToken(localStorage.getItem('token')).roles;
         return this.roles.indexOf('ADMIN') >=0;
     }
 
     isUser(){
+        let jwtHelper = new JwtHelperService();
+        this.roles = jwtHelper.decodeToken(localStorage.getItem('token')).roles;
         return this.roles.indexOf('USER') >=0;
     }
 

@@ -5,12 +5,6 @@
             <li class="active">
                 <a class="nav-item nav-link" routerLink="/home" >Home</a>
             </li>
-            <li >
-                <a class="nav-item nav-link" routerLink="/blockchain"  *ngIf="isAuthenticated()">Blockchain</a>
-           </li>
-            <li >
-                 <a class="nav-item nav-link" routerLink="/manage"  *ngIf="isAuthenticated()">Manage</a>
-            </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li >
@@ -39,6 +33,6 @@
 <!-- footer-->
 <footer class="page-footer fixed-bottom" style="background-color: #0f223b;text-align:right;font-size:0.7em" *ngIf="isAuthenticated()">
     <div class="navbar-nav">
-        <a class="nav-item nav-link"  style="color:darkgray;" routerLink="">EASY SIGN PORTAL&nbsp;&nbsp;</a> 
+        <a class="nav-item nav-link"  style="color:darkgray;" routerLink="">MAIL HUB PORTAL&nbsp;&nbsp;</a> 
     </div>
 </footer>

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuthenticationService, UserService } from 'src/app/_services';
+import { AuthenticationService } from 'src/app/_services';
 import { AlertService } from 'src/app/_services/alert.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { AdminService } from 'src/app/_services/admin.service';
 
 
 @Component({templateUrl: 'register.component.html'})
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService,
+        private adminService: AdminService,
         private alertService: AlertService
 
     ) { 
@@ -51,7 +52,7 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value).subscribe(
+        this.adminService.registerUser(this.registerForm.value).subscribe(
           data => {
             this.router.navigate(['/login']);
             return true;

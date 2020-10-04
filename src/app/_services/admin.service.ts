@@ -9,6 +9,8 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json','Access-Control-Allow-Origin': '*'})
 };
 
+const proxyConfUrl:string = "http://localhost:8082/ws-uaa/config-service";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +20,21 @@ export class AdminService {
   
 
   constructor(private http: HttpClient) { }
+
+  getAllUsers(){
+    console.log("all users");
+  }
+
+  getUserByMail(mail:string){
+    console.log("get user by mail : " + mail);
+
+    return new User();
+  }
+
+  registerUser(formData){
+    console.log("register user : "+ formData);
+    this.addUser(formData);
+  }
 
   addUser(user: User) {
     let body = JSON.stringify(user);
@@ -36,18 +53,26 @@ export class AdminService {
     return this.http.post('/server/update-user/'+mail, body, {headers:this.headers});  
   }
 
-  getConfig(serviceName: string){
-    let url: string = "http://localhost:8082/ws-uaa/config-service/show-config/"+serviceName;
+
+  removeUser(mail: string) {
+    this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
+    this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+    console.log("check mail : " + mail );
+    return this.http.delete('/server/remove-user/'+mail, {headers:this.headers});  
+  }
+
+  getConfig(serviceName: string, profile: string){
+    let url: string = proxyConfUrl +"/show-config/"+serviceName + "/profile/" + profile;
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
     return this.http.get(url,{headers:this.headers});
   }
 
-  getConfiguration(serviceName: string){
-    let url: string = "http://localhost:8082/ws-uaa/config-service/get-config/"+serviceName;
+  getConfiguration(serviceName: string, profile:string){
+    let url: string = proxyConfUrl +"/get-config/" + serviceName + "/profile/" + profile;
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
-    return this.http.get(url,{headers:this.headers});
+    return this.http.get(url, {headers:this.headers});
   }
 
   addConfig(config: any, nameService: string){
@@ -57,7 +82,7 @@ export class AdminService {
     console.log("config to send : "+body);
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
-    return this.http.post('/server/config-service/add-config', body, {headers:this.headers});  
+    return this.http.post(proxyConfUrl +"/add-config", body, {headers:this.headers});  
   }
 
   updateConfig(nameService: string, key: string, updatedValue: string){
@@ -66,7 +91,7 @@ export class AdminService {
     console.log("config to send : "+body);
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
-    return this.http.post('http://localhost:8082/ws-uaa/config-service/update-config', body, {headers:this.headers});  
+    return this.http.post(proxyConfUrl +"/update-config", body, {headers:this.headers});  
   }
 
   deleteConfig(nameService: string, key: string){
@@ -75,16 +100,15 @@ export class AdminService {
     console.log("config to send : "+body);
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
-    return this.http.post('http://localhost:8082/ws-uaa/config-service/remove-config', body, {headers:this.headers});  
+    return this.http.post(proxyConfUrl +"/remove-config", body, {headers:this.headers});  
   }
 
   refreshConfig(){
     let body = JSON.stringify({});
     console.log("trying to refresh");
     this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;
-   // this.headers.append('Accept', 'application/json');   
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
-    return this.http.get('/server/refresh-config', {headers:this.headers}); 
+    return this.http.get(proxyConfUrl + "/refresh-config", {headers:this.headers}); 
     
   }
 

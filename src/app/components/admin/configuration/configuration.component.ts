@@ -22,13 +22,31 @@ export class ConfigurationComponent implements OnInit {
   hasConfig: boolean;
   configList: any = [];
   discoveryConfigList: any = [];
-  blockchainConfigList: any = [];
+  notificationConfigList: any = [];
   editField: string;
   actualConfig: string;
 
   addingForm: FormGroup;
   submitted: boolean;
   error: string;
+
+  services:any = [
+    {
+      "id":"uaa-service",
+      "name":"User Account And Authentication",
+      "description": "Service that authenticate and register users"
+    },
+    {
+      "id":"discovery-service",
+      "name":"DNS configuration",
+      "description": "Service that register services name"
+    },
+    {
+      "id":"notification-service",
+      "name":"Notification Sender",
+      "description": "Service that send and emails"
+    }
+  ] 
 
   @ViewChild("showSwal") showSwal: SwalComponent;
 
@@ -41,30 +59,25 @@ export class ConfigurationComponent implements OnInit {
 
 
   ngOnInit() {
-    let servicesName = ["uaa-service","discovery-service","blockchain-service"];
-    for(let serviceName in servicesName){
-      console.log("service name : " + servicesName[serviceName]);
-      //  this.adminService.getConfig(servicesName[serviceName]).subscribe(configuration => {
-      //     this.configuration[servicesName[serviceName]] = configuration;
-      //     console.log(serviceName+" configuration : " + this.configuration[servicesName[serviceName]]);
-      //   });
-        this.adminService.getConfiguration(servicesName[serviceName]).subscribe(configuration => {
-          this.configuration[servicesName[serviceName]] = configuration;
-          console.log(serviceName+" configuration : " + this.configuration[servicesName[serviceName]]);
-        });
-      }
+    this.services.forEach(service => {
+      console.log("service name : " + service.id);
+      this.adminService.getConfiguration(service.id, "dev").subscribe(configuration => {
+        this.configuration[service.id] = configuration;
+        console.log(service.id+" configuration : " + this.configuration[service.id]);
+      });
+    });
 
-   
     this.addingForm = this.formBuilder.group({
       key: ['', Validators.required],
       value: ['', Validators.required]
     });
+
   }
 
   back(){
     this.hasConfig = false;
     this.discoveryConfigList = [];
-    this.blockchainConfigList = [];
+    this.notificationConfigList = [];
     this.configList = [];
     this.actualConfig = "";
   }
@@ -77,9 +90,9 @@ export class ConfigurationComponent implements OnInit {
       case 'discovery-service':
         console.log('discovery service wee.');
         return this.discoveryConfigList;
-      case 'blockchain-service':
-      console.log('blockchain service wee.');
-      return this.blockchainConfigList;
+      case 'notification-service':
+      console.log('notification service wee.');
+      return this.notificationConfigList;
       default:
         console.log('Sorry, u dont nothing jon snow ');
     }
@@ -92,10 +105,11 @@ export class ConfigurationComponent implements OnInit {
     this.actualConfig = serviceName;
     this.hasConfig = true;
     //this.location =  this.configuration[serviceName].propertySources[0].name;
-    let jsonData = this.configuration[serviceName];
-    for(var i in jsonData){
-         this.configList.push([i, jsonData[i]]);     
-      }
+    let serviceConf = this.configuration[serviceName];
+    serviceConf.forEach(conf => {
+      this.configList.push([conf.key, conf.value]);     
+    });
+
   }
 
   

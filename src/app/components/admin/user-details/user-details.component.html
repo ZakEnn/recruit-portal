@@ -24,16 +24,6 @@
     <dt class="col-sm-4 text-truncate">Activated</dt>
     <dd class="col-sm-8">{{user.actived}}</dd>
 
-    <dt class="col-sm-4 text-truncate"> Assigned Task </dt>
-    <dd class="col-sm-8">
-      <a style="cursor: pointer" (click)="getTasks(user.email)" >
-        get assigned tasks 
-      </a>
-    </dd>
-
-    <dt class="col-sm-4 text-truncate">Demanded Task</dt>
-    <dd class="col-sm-8"><a href="">get demanded tasks</a></dd>
-
     <dt class="col-sm-4">Roles</dt>
     <dd class="col-sm-8">
       <dl class="row">
@@ -43,26 +33,4 @@
       </dl>
     </dd>
   </dl>
-</div>
-
-
-<div *ngIf="taskActivated" class="col-md-6" style="float:right">
-    <strong class="breadcrumb">Assigned tasks</strong>
-    <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Process id</th>
-            <th>Task Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of userTasks | paginate: { itemsPerPage: 5, currentPage: p }">
-            <td>{{task.processInstanceId}}</td>
-            <td>{{task.createTime.split('T')[0]}} à {{ (task.createTime.split('T')[1]).split('.')[0]}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="center-text"><pagination-controls (pageChange)="p = $event"></pagination-controls></div> 
-
-
 </div>

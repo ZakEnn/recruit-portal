@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/_services';
 import { ChangeDetectorRef } from '@angular/core';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-user-details',
@@ -19,33 +19,14 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(private router:Router,
               private route:ActivatedRoute,
-              private userService: UserService,
+              private adminService: AdminService,
               private ref: ChangeDetectorRef) 
               { }
 
   ngOnInit() {
-    this.userService.getByMail(this.mail).subscribe(user => {
+    this.adminService.getUserByMail(this.mail).subscribe(user => {
         this.user = user;
       });
-  }
-
-  getTasks(mail: string){
-    this.taskActivated = true;
-    console.log("print tasks");
-    this.msg="";
-    this.userService.getTasksByMail(mail).subscribe(tasks => {
-      // this.tasks = tasks.data;
-      this.userTasks = tasks;
-      if(this.userTasks){
-        this.userTasks = this.userTasks.data;
-        this.ref.detectChanges();
-      }
-     });  
-
-    if(!this.userTasks){
-      this.msg = "There is no task assigned to this user at this moment !" 
-      }
-    
   }
 
 

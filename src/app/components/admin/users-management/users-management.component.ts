@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService} from 'src/app/_services';
 import { SwalPartialTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -23,13 +22,12 @@ export class UsersManagementComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
                private router: Router,
                public readonly swalTargets: SwalPartialTargets,
-               private userService: UserService,
                private adminService: AdminService) { 
     }
 
     ngOnInit() {
        
-        this.userService.getAll().subscribe(users => {
+        this.adminService.getAllUsers().subscribe(users => {
             this.users = users;
         });
 
@@ -48,7 +46,7 @@ export class UsersManagementComponent implements OnInit {
   get f() { return this.addingForm.controls; }
 
   delete(mail:string){
-        this.userService.removeUser(mail).subscribe(user => {
+        this.adminService.removeUser(mail).subscribe(user => {
           console.log(user);
         });
     }

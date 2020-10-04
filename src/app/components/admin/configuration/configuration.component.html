@@ -7,34 +7,16 @@
   Services configuration
 </span>
 <hr> 
-<div class="container">
-  <div class="row">
-      <span class="card border-light mb-3" style="max-width: 18rem;"
-      (click)="getConfig('uaa-service')" *ngIf="!hasConfig">
-  <div class="card-header">uaa-service</div>
-  <div class="card-body">
-    <h5 class="card-title">User Account and Authentication</h5>
-    <p class="card-text">configure database of users, jwt and more...</p>
-  </div>
-</span>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<span class="card border-light mb-3" style="max-width: 18rem;float:right;"
-  (click)="getConfig('discovery-service')" *ngIf="!hasConfig">
-  <div class="card-header">discovery-service</div>
-  <div class="card-body">
-   <h5 class="card-title">discovery service configuration</h5>
-  </div>
-</span>
-&nbsp;&nbsp;&nbsp;&nbsp;
-
-<span class="card border-light mb-3" style="max-width: 18rem;float:right;"
-  (click)="getConfig('blockchain-service')" *ngIf="!hasConfig">
-  <div class="card-header">blockchain-service</div>
-  <div class="card-body">
-   <h5 class="card-title">blockchain service configuration</h5>
-  </div>
-</span>
-
+<div class="row">
+  <div *ngFor="let service of services">
+      <span class="card border-light mb-3" style="width: 18rem;margin-right:3rem;cursor:pointer"
+           (click)="getConfig(service.id)" *ngIf="!hasConfig">
+          <div class="card-header">{{service.id}}</div>
+          <div class="card-body">
+            <h5 class="card-title">{{service.name}}</h5>
+            <p class="card-text">{{service.description}}</p>
+          </div>
+      </span>
   </div>
  
 

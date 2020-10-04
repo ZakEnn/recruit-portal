@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef  } from '@angular/core';
 import { User } from 'src/app/_models';
-import { UserService, AuthenticationService } from 'src/app/_services';
+import { NotificationService } from 'src/app/_services';
 import { FormGroup , FormsModule} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -34,47 +34,15 @@ export class HomeComponent {
     statusCode:string;
 
     @ViewChild("showSwal") showSwal: SwalComponent;
-
-    fieldArray: Array<any> = [
-        {
-          'name': 'Default Name 1'
-        },
-        {
-          'name': 'Default Name 2'
-        }
-      ];
-      newAttribute: any = {};
-    
-      firstField = true;
-      firstFieldName = 'First Item name';
-      isEditItems: boolean;
-    
-      addFieldValue(index) {
-        if (this.fieldArray.length <= 2) {
-          this.fieldArray.push(this.newAttribute);
-          this.newAttribute = {};
-        } else {
-    
-        }
-      }
-    
-      deleteFieldValue(index) {
-        this.fieldArray.splice(index, 1);
-      }
-    
-      onEditCloseItems() {
-        this.isEditItems = !this.isEditItems;
-      }
-
+  
     constructor(
-        private userService: UserService,
-        private authenticationService: AuthenticationService,
+        private notificationService: NotificationService,
         private formBuilder: FormBuilder,
         private sanitizer: DomSanitizer,
         private location: Location,
         private router: Router
     ) {
-       
+      this.showDocsStatus = true;
     }
 
 
@@ -142,7 +110,7 @@ export class HomeComponent {
         this.showNotificationStatus = false;
 
         console.log("data to send : "+this.pdfs[0]);
-        this.location.replaceState("home","step2=adding-signers");
+        this.location.replaceState("home","step2=adding-receivers");
 
     }
 
@@ -165,12 +133,10 @@ export class HomeComponent {
         console.log("email to send :" + this.emails[0]);
         console.log("notif to send :" + this.notifBody);
         this.dataToSend = {
-            "usageId":"b72751fd-5ca4-11e9-8fe5-0242ac110006",
-            "taskName": "sign01",
             "pdfB64":this.pdfs[0],
-            "mail":this.emails[0],
-            "notifSubject": this.notifObj,
-            "notifBody": this.notifBody
+            "receivers":this.emails,
+            "object": this.notifObj,
+            "message": this.notifBody
         }
         this.location.replaceState("home","step4=confirm-informations");
 
@@ -179,7 +145,7 @@ export class HomeComponent {
 
     sendObj(){
         this.loading = true;
-        this.userService.sendData(this.dataToSend)
+        this.notificationService.sendNotification(this.dataToSend)
         .subscribe(
          data => {
             if(data){
