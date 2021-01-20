@@ -18,17 +18,19 @@ export class AdminService {
 
   getAllUsers(){
     console.log("all users");
+    return this.http.get(`/server/users`, {headers:this.headers});  
+
   }
 
   getUserByMail(mail:string){
     console.log("get user by mail : " + mail);
 
-    return new User();
+    return this.http.get(`/server/user/mail/`+mail, {headers:this.headers});  
   }
 
   registerUser(formData){
     console.log("register user : "+ formData);
-    this.addUser(formData);
+    return this.addUser(formData);
   }
 
   addUser(user: User) {

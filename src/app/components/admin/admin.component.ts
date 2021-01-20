@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/_models';
-import { UserService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

@@ -18,7 +18,6 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UsersManagementComponent } from './components/admin/users-management/users-management.component';
-import { ConfigurationComponent } from './components/admin/configuration/configuration.component';
 import { UserDetailsComponent } from './components/admin/user-details/user-details.component'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -46,7 +45,6 @@ import { FormWizardModule } from 'angular2-wizard';
         LoginComponent,
         RegisterComponent,
         UsersManagementComponent,
-        ConfigurationComponent,
         UserDetailsComponent
      ],
     providers: [],

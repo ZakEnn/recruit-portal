@@ -8,7 +8,6 @@ import { LoginComponent } from 'src/app/components/login';
 import { AdminComponent } from 'src/app/components/admin';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { UsersManagementComponent } from 'src/app/components/admin/users-management/users-management.component';
-import { ConfigurationComponent } from 'src/app/components/admin/configuration/configuration.component';
 import { UserDetailsComponent } from 'src/app/components/admin/user-details/user-details.component';
 
 const appRoutes: Routes = [
@@ -26,8 +25,7 @@ const appRoutes: Routes = [
         path: 'admin',
         component: AdminComponent,
         children:[
-            {path: '', component: ConfigurationComponent},
-            { path: 'configuration', component: ConfigurationComponent},
+            {path: '', component: UsersManagementComponent},
             { path: 'manage-users', component: UsersManagementComponent},
             { path: 'user-details', component: UserDetailsComponent, children:[
                 { path: '**', component: UserDetailsComponent}
