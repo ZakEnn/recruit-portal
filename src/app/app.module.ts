@@ -21,7 +21,8 @@ import { UsersManagementComponent } from './components/admin/users-management/us
 import { UserDetailsComponent } from './components/admin/user-details/user-details.component'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { FormWizardModule } from 'angular2-wizard';
+import { FormWizardModule } from 'angular2-wizard';;
+import { RecruitComponent } from './recruit/recruit.component'
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { FormWizardModule } from 'angular2-wizard';
         RegisterComponent,
         UsersManagementComponent,
         UserDetailsComponent
-     ],
+,
+        RecruitComponent     ],
     providers: [],
     bootstrap: [AppComponent]
 })

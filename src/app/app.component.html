@@ -3,12 +3,15 @@
     <div class="container-fluid">
         <ul class="navbar-nav">
             <li class="active">
-                <a class="nav-item nav-link" routerLink="/home" >Home</a>
+                <a class="nav-item nav-link" routerLink="/home" >Candidature</a>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li >
-                  <a class="nav-item nav-link" routerLink="/admin"  *ngIf="isAdmin()">Admin</a>
+                <a class="nav-item nav-link" routerLink="/admin"  *ngIf="isAdmin()">Admin</a>
+            </li>
+            <li >
+                <a class="nav-item nav-link" routerLink="/recruiter"  *ngIf="isRecruiter()">Recruiter</a>
             </li>
             <li>
                 <a class="nav-link pull-right" (click)="logout()">Logout</a>
@@ -33,6 +36,6 @@
 <!-- footer-->
 <footer class="page-footer fixed-bottom" style="background-color: #0f223b;text-align:right;font-size:0.7em" *ngIf="isAuthenticated()">
     <div class="navbar-nav">
-        <a class="nav-item nav-link"  style="color:darkgray;" routerLink="">MAIL HUB PORTAL&nbsp;&nbsp;</a> 
+        <a class="nav-item nav-link"  style="color:darkgray;" routerLink="">RECRUIT PORTAL&nbsp;&nbsp;</a> 
     </div>
 </footer>

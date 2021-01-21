@@ -9,6 +9,7 @@ import { AdminComponent } from 'src/app/components/admin';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { UsersManagementComponent } from 'src/app/components/admin/users-management/users-management.component';
 import { UserDetailsComponent } from 'src/app/components/admin/user-details/user-details.component';
+import { RecruitComponent } from './components/recruit/recruit.component';
 
 const appRoutes: Routes = [
     {
@@ -19,6 +20,11 @@ const appRoutes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'recruiter',
+        component: RecruitComponent,
         canActivate: [AuthGuard]
     },
     {
