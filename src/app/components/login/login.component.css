@@ -1,14 +1,17 @@
-#register{
+#login{
     max-width:38rem;
     width: 50rem;
     margin: auto;
     justify-content: center;
     flex-direction: row;
-    margin-top: 8%;
+    margin-top: 14%;
 }
 
 .center-form{
   margin: auto;
   width: 90%;
   padding: 3%;
+}
+
+#openid-buttons{
 }

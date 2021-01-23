@@ -14,7 +14,6 @@ import { AdminComponent } from 'src/app/components/admin';
 import { LoginComponent } from 'src/app/components/login';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UsersManagementComponent } from './components/admin/users-management/users-management.component';
@@ -22,7 +21,7 @@ import { UserDetailsComponent } from './components/admin/user-details/user-detai
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormWizardModule } from 'angular2-wizard';;
-import { RecruitComponent } from './recruit/recruit.component'
+import { RecruitComponent } from './components/recruit/recruit.component'
 
 
 @NgModule({
@@ -46,9 +45,9 @@ import { RecruitComponent } from './recruit/recruit.component'
         LoginComponent,
         RegisterComponent,
         UsersManagementComponent,
-        UserDetailsComponent
-,
-        RecruitComponent     ],
+        UserDetailsComponent,
+        RecruitComponent
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })

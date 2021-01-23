@@ -8,7 +8,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AdminService } from 'src/app/_services/admin.service';
 
 
-@Component({templateUrl: 'register.component.html'})
+@Component({
+    templateUrl: 'register.component.html',
+    styleUrls: ['./register.component.css']
+})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
