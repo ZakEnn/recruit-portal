@@ -12,6 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdminService {
+  
   headers;
  
   constructor(private http: HttpClient) { }
@@ -56,6 +57,13 @@ export class AdminService {
     this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
     console.log("check mail : " + mail );
     return this.http.delete('/server/remove-user/'+mail, {headers:this.headers});  
+  }
+
+  changePassword(passwordData: any) {
+    this.headers =  new HttpHeaders({'Content-Type':'application/json'}) ;   
+    this.headers = this.headers.append('Authorization', "Bearer "+localStorage.getItem('token'));
+    console.log("check mail : " + passwordData.mail );
+    return this.http.post('/server/change-password/',  passwordData, {headers:this.headers});  
   }
 
 }

@@ -22,7 +22,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormWizardModule } from 'angular2-wizard';;
 import { RecruitComponent } from './components/recruit/recruit.component'
-
+;
+import { PasswordComponent } from './components/password/password.component'
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { RecruitComponent } from './components/recruit/recruit.component'
         RegisterComponent,
         UsersManagementComponent,
         UserDetailsComponent,
-        RecruitComponent
+        RecruitComponent,
+        PasswordComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

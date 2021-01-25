@@ -34,7 +34,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        return this.http.post('http://localhost:8082/ws-uaa/login', { email, password }, {observe: 'response',  responseType: 'text'});
+        return this.http.post('http://localhost:8080/ws-uaa/login', { email, password }, {observe: 'response',  responseType: 'text'});
     }
 
     saveToken(jwt: string){
@@ -58,8 +58,7 @@ export class AuthenticationService {
             if(this.jwt){
                 return jwtHelper.isTokenExpired(this.jwt);
             }
-            return false;
-        
+            return false;      
     }
 
     isAdmin(){

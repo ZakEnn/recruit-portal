@@ -10,6 +10,7 @@ import { RegisterComponent } from 'src/app/components/register/register.componen
 import { UsersManagementComponent } from 'src/app/components/admin/users-management/users-management.component';
 import { UserDetailsComponent } from 'src/app/components/admin/user-details/user-details.component';
 import { RecruitComponent } from './components/recruit/recruit.component';
+import { PasswordComponent } from './components/password/password.component';
 
 const appRoutes: Routes = [
     {
@@ -49,6 +50,11 @@ const appRoutes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'password',
+        component: PasswordComponent,
+                
     },
 
     // otherwise redirect to home
